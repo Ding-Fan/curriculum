@@ -5,7 +5,7 @@ import Course from "./components/Course";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main className={"p-4"}>
       <div className="flex flex-col gap-2">
         {COURSES.map((item) => {
           return (
