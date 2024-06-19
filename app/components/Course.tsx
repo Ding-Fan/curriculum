@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { PERIODS, WEEKDAYS } from "../CONSTANTS";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   subject: string;
   teacher: string;
   classroom: string;
@@ -16,9 +16,13 @@ const Course = ({
   period,
   weekdays,
   className,
-}: Props & HTMLDivElement) => {
+  ...rest
+}: Props) => {
   return (
-    <div className={twMerge("card w-96 bg-base-100 shadow-xl", className)}>
+    <div
+      className={twMerge("card w-96 bg-base-100 shadow-xl", className)}
+      {...rest}
+    >
       <div className="card-body">
         <div className="text-xl font-bold">Subject</div>
         <div>{subject} </div>
