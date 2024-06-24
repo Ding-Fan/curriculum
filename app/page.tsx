@@ -51,9 +51,9 @@ export default function Home() {
                         period={item.period}
                         weekdays={item.weekdays}
                         classroom={item.classroom}
-                        className={twMerge(
-                          isCurrentCourse(item).result && "!bg-sky-500",
-                        )}
+                        className={
+                          isCurrentCourse(item).result ? "bg-sky-500" : ""
+                        }
                       />
                     );
                   },

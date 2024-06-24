@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import dayjs from "dayjs";
-let isBetween = require("dayjs/plugin/isBetween");
+import isBetween from "dayjs/plugin/isBetween"; // import plugin
 dayjs.extend(isBetween);
 
 const inter = Inter({ subsets: ["latin"] });
