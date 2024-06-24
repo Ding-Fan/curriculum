@@ -1,15 +1,32 @@
 import styles from "./page.module.css";
-import { COURSES, WEEKDAYS } from "./CONSTANTS";
-
+import { COURSES, WEEKDAYS, PERIODS } from "./CONSTANTS";
+import dayjs from "dayjs";
 import Course from "./components/Course";
 
 export default function Home() {
+  function findCurrentCourse(course: Course) {
+    const currentTime = dayjs();
+
+    const [startHours, startMinutes] =
+      PERIODS[course.period].startTime.split(":");
+    const startTime = dayjs()
+      .hour(Number(startHours))
+      .minute(Number(startMinutes));
+
+    const [endHours, endMinutes] = PERIODS[course.period].endTime.split(":");
+    const endTime = dayjs().hour(Number(endHours)).minute(Number(endMinutes));
+
+    let result = currentTime > startTime && currentTime < endTime;
+
+    return { result };
+  }
+
   return (
     <main className={"p-4"}>
       <div className="flex gap-2">
         {WEEKDAYS.map((item) => {
           return (
-            <div key={item.id} className="min-w-[100vw] p-2">
+            <div key={item.id} className="p-2">
               <div className="">{item.japanese}</div>
 
               <div className="flex flex-col gap-2">

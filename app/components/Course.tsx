@@ -20,7 +20,10 @@ const Course = ({
 }: Props) => {
   return (
     <div
-      className={twMerge("card mx-1 md:w-96 bg-base-100 shadow-xl", className)}
+      className={twMerge(
+        "card mx-1 w-[90vw] md:w-96 bg-base-100 shadow-xl",
+        className,
+      )}
       {...rest}
     >
       <div className="card-body">
