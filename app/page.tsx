@@ -52,7 +52,7 @@ export default function Home() {
                         weekdays={item.weekdays}
                         classroom={item.classroom}
                         className={
-                          isCurrentCourse(item).result ? "bg-sky-500" : ""
+                          isCurrentCourse(item).result ? "!bg-sky-500" : ""
                         }
                       />
                     );
