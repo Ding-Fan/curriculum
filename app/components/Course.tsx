@@ -3,6 +3,7 @@
 import { twMerge } from "tailwind-merge";
 import { PERIODS, WEEKDAYS } from "../CONSTANTS";
 import { useEffect, useState } from "react";
+import React from "react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   subject: string;
@@ -12,15 +13,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   weekdays: number;
 }
 
-const Course = ({
-  subject,
-  teacher,
-  classroom,
-  period,
-  weekdays,
-  className,
-  ...rest
-}: Props) => {
+const Course = React.forwardRef((props: Props, ref) => {
+  const { subject, teacher, classroom, period, weekdays, className, ...rest } =
+    props;
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
@@ -53,6 +48,6 @@ const Course = ({
       </div>
     </div>
   );
-};
+});
 
 export default Course;
