@@ -13,7 +13,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   weekdays: number;
 }
 
-const Course = React.forwardRef((props: Props, ref) => {
+const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   const { subject, teacher, classroom, period, weekdays, className, ...rest } =
     props;
   const [mergedClassName, setMergedClassName] = useState("");
@@ -27,7 +27,7 @@ const Course = React.forwardRef((props: Props, ref) => {
   }, [className]);
 
   return (
-    <div className={mergedClassName} {...rest}>
+    <div ref={ref} className={mergedClassName} {...rest}>
       <div className="card-body">
         <div className="text-xl font-bold">Subject</div>
         <div>{subject} </div>

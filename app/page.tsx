@@ -10,9 +10,18 @@ import useScrollTo from "./hooks/useScrollTo";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [targetRef, scrollToTarget] = useScrollTo();
-  const [nextCourseId, setNextCourseId] = useState(0);
-  const [currentCourseId, setCurrentCourseId] = useState(0);
+  const [currentCourseRef, scrollToCurrent] = useScrollTo();
+  const [nextCourseRef, scrollToNext] = useScrollTo();
+  const [nextCourseId, setNextCourseId] = useState(-1);
+  const [currentCourseId, setCurrentCourseId] = useState(-1);
+
+  const setRef = (id: number) => {
+    if (id === currentCourseId) {
+      return currentCourseRef;
+    } else if (id === nextCourseId) {
+      return nextCourseRef;
+    }
+  };
 
   useEffect(() => {
     COURSES.forEach((course, index) => {
@@ -23,12 +32,12 @@ export default function Home() {
         setCurrentCourseId(index);
       }
     });
-
-    // if (nextCourseId < COURSES.length) {
-    //   scrollToTarget();
-    //   setNextCourseId(nextCourseId + 1);
-    // }
-  }, [nextCourseId, scrollToTarget]);
+    if (currentCourseId > -1) {
+      scrollToCurrent();
+    } else if (nextCourseId > -1) {
+      scrollToNext();
+    }
+  }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
     <main className={"p-4"}>
@@ -43,7 +52,9 @@ export default function Home() {
                   (course) => {
                     return (
                       <Course
-                        ref={targetRef}
+                        ref={
+                          setRef(course.id) as React.RefObject<HTMLDivElement>
+                        }
                         key={course.id}
                         subject={course.subject}
                         teacher={course.teacher}
@@ -54,7 +65,6 @@ export default function Home() {
                           isNextCourse(course).result ? "bg-amber-50" : "",
                           isCurrentCourse(course).result ? "bg-amber-200" : ""
                         )}
-                        // className="bg-sky-500"
                       />
                     );
                   }
