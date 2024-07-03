@@ -50,4 +50,6 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   );
 });
 
+Course.displayName = "Course";
+
 export default Course;
