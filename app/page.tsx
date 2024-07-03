@@ -33,9 +33,9 @@ export default function Home() {
       }
     });
     if (currentCourseId > -1) {
-      scrollToCurrent();
+      (scrollToCurrent as () => void)();
     } else if (nextCourseId > -1) {
-      scrollToNext();
+      (scrollToNext as () => void)();
     }
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
