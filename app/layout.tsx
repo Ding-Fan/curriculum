@@ -6,6 +6,7 @@ import "./globals.css";
 
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween"; // import plugin
+import { twMerge } from "tailwind-merge";
 dayjs.extend(isBetween);
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

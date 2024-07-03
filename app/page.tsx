@@ -40,13 +40,30 @@ export default function Home() {
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
-    <main className={"p-4"}>
-      <div className="flex gap-2">
+    <main className={"p-4 w-fit"}>
+      <div className="grid grid-cols-7 gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
             <div key={weekday.id} className="p-2">
-              <div className="">{weekday.japanese}</div>
-
+              <div
+                className={twMerge(
+                  "bg-gray-200 rounded-2xl items-center justify-center p-4 flex gap-2 w-60",
+                  dayjs().day() === weekday.id ? "bg-amber-200" : ""
+                )}
+              >
+                <div className="text-2xl">{weekday.japanese}</div>
+                <div className="">
+                  {dayjs().day(weekday.id).format("MM/DD")}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="grid grid-cols-7 gap-2">
+        {WEEKDAYS.map((weekday) => {
+          return (
+            <div key={weekday.id} className="p-2">
               <div className="flex flex-col gap-2">
                 {COURSES.filter((course) => course.weekdays === weekday.id).map(
                   (course) => {
