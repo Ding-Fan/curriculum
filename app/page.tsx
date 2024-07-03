@@ -40,7 +40,7 @@ export default function Home() {
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
-    <main className={"p-4 w-fit"}>
+    <main className={"p-4 "}>
       <div className="grid grid-cols-7 gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
@@ -79,6 +79,7 @@ export default function Home() {
                         weekdays={course.weekdays}
                         classroom={course.classroom}
                         className={twMerge(
+                          "w-60",
                           isNextCourse(course).result ? "bg-amber-50" : "",
                           isCurrentCourse(course).result ? "bg-amber-200" : ""
                         )}
