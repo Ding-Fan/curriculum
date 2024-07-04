@@ -80,8 +80,12 @@ export default function Home() {
                         classroom={course.classroom}
                         className={twMerge(
                           "w-60",
-                          isNextCourse(course).result ? "bg-amber-50" : "",
-                          isCurrentCourse(course).result ? "bg-amber-200" : ""
+                          isNextCourse(course).result
+                            ? "bg-amber-50 dark:bg-amber-700"
+                            : "",
+                          isCurrentCourse(course).result
+                            ? "bg-amber-200 dark:bg-amber-900"
+                            : ""
                         )}
                       />
                     );
