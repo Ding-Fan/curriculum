@@ -41,10 +41,10 @@ export default function Home() {
 
   return (
     <main className={"p-4 "}>
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
-            <div key={weekday.id} className="p-2">
+            <div key={weekday.id} className="w-fit p-2">
               <div
                 className={twMerge(
                   "bg-gray-200 rounded-2xl items-center justify-center p-4 flex gap-2 w-60",
@@ -60,7 +60,7 @@ export default function Home() {
           );
         })}
       </div>
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
             <div key={weekday.id} className="p-2">

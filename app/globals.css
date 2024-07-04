@@ -81,11 +81,11 @@
   margin: 0;
 }
 
-html,
+/* html,
 body {
   width: auto;
   height: auto;
-}
+} */
 
 a {
   color: inherit;
