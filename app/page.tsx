@@ -94,11 +94,11 @@ export default function Home() {
                         period={course.period}
                         weekdays={course.weekdays}
                         classroom={course.classroom}
-                        isCurrentCourse={isCurrentCourse(course).result}
+                        isCurrentCourse={course.id === currentCourseId}
                         className={twMerge(
                           "w-60",
                           isNextCourse(course).result
-                            ? "bg-amber-50 dark:bg-amber-700"
+                            ? "bg-amber-50 dark:bg-amber-900"
                             : ""
                         )}
                       />

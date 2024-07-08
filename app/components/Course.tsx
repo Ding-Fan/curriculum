@@ -28,7 +28,6 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     ...rest
   } = props;
   const { startTime, endTime } = PERIODS_PROCESSED[period];
-
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
@@ -40,15 +39,33 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   const [completionPercentage, setCompletionPercentage] = useState(0);
 
   useEffect(() => {
+    // console.log("current course check", isCurrentCourse);
+
     if (isCurrentCourse) {
       const currentTime = dayjs();
       const totalDuration = startTime.diff(endTime, "minute");
       const currentDuration = currentTime.diff(endTime, "minute");
 
       const percentage = Math.min((currentDuration / totalDuration) * 100, 100);
+
+      // console.log("percentage", percentage);
+
       setCompletionPercentage(percentage);
     }
   }, [startTime, endTime, isCurrentCourse]);
+
+  // https://www.bugpilot.com/guides/en/how-to-fix-text-content-mismatch-errors-nextjs-0a2e#2-use-of-non-deterministic-javascript
+  // we have to useState and useEffect
+  // when we want to keep it in the client
+  const [startTimeProcessed, setStartTimeProcessed] = useState("");
+  const [endTimeProcessed, setEndTimeProcessed] = useState("");
+
+  useEffect(() => {
+    setStartTimeProcessed(startTime.format("HH:mm"));
+    setEndTimeProcessed(endTime.format("HH:mm"));
+
+    return () => {};
+  }, [startTime, endTime]);
 
   return (
     <div ref={ref} className={mergedClassName} {...rest}>
@@ -68,7 +85,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
         <div className="text-xl font-bold">Period</div>
         <div>
-          {startTime.format("HH:mm")} - {endTime.format("HH:mm")}
+          {startTimeProcessed} - {endTimeProcessed}
         </div>
 
         <div className="text-xl font-bold">Weekdays</div>
