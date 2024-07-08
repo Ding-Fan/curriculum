@@ -1,9 +1,10 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { PERIODS, WEEKDAYS } from "../CONSTANTS";
+import { PERIODS_PROCESSED, WEEKDAYS } from "../CONSTANTS";
 import { useEffect, useState } from "react";
 import React from "react";
+import dayjs from "dayjs";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   subject: string;
@@ -11,22 +12,51 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   classroom: string;
   period: number;
   weekdays: number;
+  isNextCourse?: boolean;
+  isCurrentCourse?: boolean;
 }
 
 const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-  const { subject, teacher, classroom, period, weekdays, className, ...rest } =
-    props;
+  const {
+    subject,
+    teacher,
+    classroom,
+    period,
+    weekdays,
+    className,
+    isCurrentCourse,
+    ...rest
+  } = props;
+  const { startTime, endTime } = PERIODS_PROCESSED[period];
+
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
-    setMergedClassName(twMerge("card shadow-xl", className));
+    setMergedClassName(twMerge("card shadow-xl overflow-hidden", className));
 
     return () => {};
   }, [className]);
 
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+
+  useEffect(() => {
+    if (isCurrentCourse) {
+      const currentTime = dayjs();
+      const totalDuration = startTime.diff(endTime, "minute");
+      const currentDuration = currentTime.diff(endTime, "minute");
+
+      const percentage = Math.min((currentDuration / totalDuration) * 100, 100);
+      setCompletionPercentage(percentage);
+    }
+  }, [startTime, endTime, isCurrentCourse]);
+
   return (
     <div ref={ref} className={mergedClassName} {...rest}>
-      <div className="card-body">
+      <div
+        className="absolute bottom-0 w-full bg-amber-200 dark:bg-amber-900"
+        style={{ height: `${completionPercentage}%` }}
+      ></div>
+      <div className="card-body z-10">
         <div className="text-xl font-bold">Subject</div>
         <div>{subject} </div>
 
@@ -38,7 +68,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
         <div className="text-xl font-bold">Period</div>
         <div>
-          {PERIODS[period].startTime} - {PERIODS[period].endTime}
+          {startTime.format("HH:mm")} - {endTime.format("HH:mm")}
         </div>
 
         <div className="text-xl font-bold">Weekdays</div>

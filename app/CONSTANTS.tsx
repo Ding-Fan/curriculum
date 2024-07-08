@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const PERIODS = [
   {
     id: 0,
@@ -15,6 +17,14 @@ export const PERIODS = [
     endTime: "14:55",
   },
 ];
+
+export const PERIODS_PROCESSED = PERIODS.map((period) => {
+  return {
+    ...period,
+    startTime: dayjs(period.startTime, "HH:mm"),
+    endTime: dayjs(period.endTime, "HH:mm"),
+  };
+});
 
 export const WEEKDAYS = [
   { id: 0, japanese: "日", english: "Sunday" },

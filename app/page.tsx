@@ -1,7 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
-import { COURSES, WEEKDAYS, PERIODS } from "./CONSTANTS";
+import { COURSES, WEEKDAYS } from "./CONSTANTS";
 import dayjs from "dayjs";
 import Course from "./components/Course";
 import { twMerge } from "tailwind-merge";
@@ -95,13 +94,11 @@ export default function Home() {
                         period={course.period}
                         weekdays={course.weekdays}
                         classroom={course.classroom}
+                        isCurrentCourse={isCurrentCourse(course).result}
                         className={twMerge(
                           "w-60",
                           isNextCourse(course).result
                             ? "bg-amber-50 dark:bg-amber-700"
-                            : "",
-                          isCurrentCourse(course).result
-                            ? "bg-amber-200 dark:bg-amber-900"
                             : ""
                         )}
                       />
