@@ -19,7 +19,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
-    setMergedClassName(twMerge("card mx-1 shadow-xl", className));
+    setMergedClassName(twMerge("card shadow-xl", className));
 
     return () => {};
   }, [className]);

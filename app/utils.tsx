@@ -17,11 +17,11 @@ export const isCurrentCourse = (course: Course) => {
     currentTime.isBetween(startTime, endTime) &&
     currentTime.day() === course.weekdays;
 
-  console.log("current ", currentTime.format("HH:mm"));
-  console.log("start ", startTime.format("HH:mm"));
-  console.log("end ", endTime.format("HH:mm"));
-  console.log("current course", course.subject);
-  console.log("current result", result);
+  // console.log("current ", currentTime.format("HH:mm"));
+  // console.log("start ", startTime.format("HH:mm"));
+  // console.log("end ", endTime.format("HH:mm"));
+  // console.log("current course", course.subject);
+  // console.log("current result", result);
 
   return { result };
 };
