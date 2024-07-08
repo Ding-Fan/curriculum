@@ -1,6 +1,7 @@
 "use client";
 
 import "./globals.css";
+import { Provider } from "jotai";
 
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween"; // import plugin
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }

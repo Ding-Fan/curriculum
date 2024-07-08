@@ -1,10 +1,12 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { PERIODS_PROCESSED, WEEKDAYS } from "../CONSTANTS";
+import { WEEKDAYS } from "../CONSTANTS";
 import { useEffect, useState } from "react";
 import React from "react";
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
+import { periodsProcessedAtom } from "../atom";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   subject: string;
@@ -27,7 +29,12 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     isCurrentCourse,
     ...rest
   } = props;
-  const { startTime, endTime } = PERIODS_PROCESSED[period];
+
+  const [periodsProcessed] = useAtom(periodsProcessedAtom);
+
+  const { startFormatted, endFormatted, startTime, endTime } =
+    periodsProcessed[period];
+
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
@@ -57,15 +64,6 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   // https://www.bugpilot.com/guides/en/how-to-fix-text-content-mismatch-errors-nextjs-0a2e#2-use-of-non-deterministic-javascript
   // we have to useState and useEffect
   // when we want to keep it in the client
-  const [startTimeProcessed, setStartTimeProcessed] = useState("");
-  const [endTimeProcessed, setEndTimeProcessed] = useState("");
-
-  useEffect(() => {
-    setStartTimeProcessed(startTime.format("HH:mm"));
-    setEndTimeProcessed(endTime.format("HH:mm"));
-
-    return () => {};
-  }, [startTime, endTime]);
 
   return (
     <div ref={ref} className={mergedClassName} {...rest}>
@@ -85,7 +83,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
         <div className="text-xl font-bold">Period</div>
         <div>
-          {startTimeProcessed} - {endTimeProcessed}
+          {startFormatted} - {endFormatted}
         </div>
 
         <div className="text-xl font-bold">Weekdays</div>
