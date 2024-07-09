@@ -1,26 +1,23 @@
 "use client";
 
-export type Period = {
-  id: number;
-  startTime: string;
-  endTime: string;
-};
+import dayjs from "dayjs";
+import { Period } from "./type";
 
 export const PERIODS: Period[] = [
   {
     id: 0,
-    startTime: "9:20",
-    endTime: "10:50",
+    startTime: dayjs("9:20", "HH:mm"),
+    endTime: dayjs("10:50", "HH:mm"),
   },
   {
     id: 1,
-    startTime: "11:05",
-    endTime: "12:35",
+    startTime: dayjs("11:05", "HH:mm"),
+    endTime: dayjs("12:35", "HH:mm"),
   },
   {
     id: 2,
-    startTime: "13:25",
-    endTime: "14:55",
+    startTime: dayjs("13:25", "HH:mm"),
+    endTime: dayjs("14:55", "HH:mm"),
   },
 ];
 export const WEEKDAYS = [

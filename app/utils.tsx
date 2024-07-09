@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
-import { PERIODS, PERIODS_PROCESSED } from "./CONSTANTS";
+import { PERIODS } from "./CONSTANTS";
+import { Course, PeriodProcessed } from "./type";
 
-export const isCurrentCourse = (course: Course) => {
+export const isCurrentCourse = (course: Course, periods: PeriodProcessed[]) => {
   const currentTime = dayjs();
 
-  const { startTime, endTime } = PERIODS_PROCESSED[course.period];
+  const { startTime, endTime } = periods[course.period];
 
   let result =
     currentTime.isBetween(startTime, endTime) &&
@@ -13,13 +14,11 @@ export const isCurrentCourse = (course: Course) => {
   return { result };
 };
 
-export const isNextCourse = (course: Course) => {
+export const isNextCourse = (course: Course, periods: PeriodProcessed[]) => {
   const currentTime = dayjs();
-  const [startHours, startMinutes] =
-    PERIODS[course.period].startTime.split(":");
-  const startTime = dayjs()
-    .hour(Number(startHours))
-    .minute(Number(startMinutes));
+
+  const { startTime } = periods[course.period];
+
   const result =
     currentTime.isBefore(startTime) && currentTime.day() === course.weekdays;
   return { result };

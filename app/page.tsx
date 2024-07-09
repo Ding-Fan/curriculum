@@ -7,12 +7,15 @@ import { twMerge } from "tailwind-merge";
 import { isCurrentCourse, isNextCourse } from "./utils";
 import useScrollTo from "./hooks/useScrollTo";
 import { useEffect, useState } from "react";
+import { useAtom, useAtomValue } from "jotai";
+import { periodsProcessedAtom } from "./atom";
 
 export default function Home() {
   const [currentCourseRef, scrollToCurrent] = useScrollTo();
   const [nextCourseRef, scrollToNext] = useScrollTo();
   const [nextCourseId, setNextCourseId] = useState(-1);
   const [currentCourseId, setCurrentCourseId] = useState(-1);
+  const periodsProcessed = useAtomValue(periodsProcessedAtom);
 
   const setRef = (id: number) => {
     if (id === currentCourseId) {
@@ -35,7 +38,7 @@ export default function Home() {
       if (isNextCourse(course).result) {
         setNextCourseId(index);
       }
-      if (isCurrentCourse(course).result) {
+      if (isCurrentCourse(course, periodsProcessed).result) {
         setCurrentCourseId(index);
       }
     });

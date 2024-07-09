@@ -1,6 +1,7 @@
 import { atom } from "jotai";
-import { PERIODS, Period } from "../CONSTANTS";
+import { PERIODS } from "../CONSTANTS";
 import dayjs from "dayjs";
+import { Period } from "../type";
 
 export const periodsAtom = atom(PERIODS);
 

@@ -5,7 +5,7 @@ import { WEEKDAYS } from "../CONSTANTS";
 import { useEffect, useState } from "react";
 import React from "react";
 import dayjs from "dayjs";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { periodsProcessedAtom } from "../atom";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -30,7 +30,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     ...rest
   } = props;
 
-  const [periodsProcessed] = useAtom(periodsProcessedAtom);
+  const periodsProcessed = useAtomValue(periodsProcessedAtom);
 
   const { startFormatted, endFormatted, startTime, endTime } =
     periodsProcessed[period];
