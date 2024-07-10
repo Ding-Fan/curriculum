@@ -35,7 +35,7 @@ export default function Home() {
     }
 
     COURSES.forEach((course, index) => {
-      if (isNextCourse(course).result) {
+      if (isNextCourse(course, periodsProcessed).result) {
         setNextCourseId(index);
       }
       if (isCurrentCourse(course, periodsProcessed).result) {
@@ -98,12 +98,10 @@ export default function Home() {
                         weekdays={course.weekdays}
                         classroom={course.classroom}
                         isCurrentCourse={course.id === currentCourseId}
-                        className={twMerge(
-                          "w-60",
-                          isNextCourse(course).result
-                            ? "bg-amber-50 dark:bg-amber-900"
-                            : ""
-                        )}
+                        isNextCourse={
+                          isNextCourse(course, periodsProcessed).result
+                        }
+                        className={twMerge("w-60")}
                       />
                     );
                   }

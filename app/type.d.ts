@@ -6,12 +6,9 @@ interface Period {
   endTime: Dayjs;
 }
 
-interface PeriodProcessed {
+interface PeriodProcessed extends Period {
   startFormatted: string;
   endFormatted: string;
-  id: number;
-  startTime: string;
-  endTime: string;
 }
 
 interface Course {

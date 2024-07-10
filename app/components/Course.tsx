@@ -27,6 +27,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     weekdays,
     className,
     isCurrentCourse,
+    isNextCourse,
     ...rest
   } = props;
 
@@ -38,7 +39,13 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
-    setMergedClassName(twMerge("card shadow-xl overflow-hidden", className));
+    setMergedClassName(
+      twMerge(
+        "card shadow-xl overflow-hidden",
+        isNextCourse ? "bg-amber-50 dark:bg-amber-900" : "",
+        className
+      )
+    );
 
     return () => {};
   }, [className]);
