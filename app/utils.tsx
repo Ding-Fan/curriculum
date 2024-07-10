@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { PERIODS } from "./CONSTANTS";
 import { Course, PeriodProcessed } from "./type";
 
 export const isCurrentCourse = (course: Course, periods: PeriodProcessed[]) => {

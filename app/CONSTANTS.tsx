@@ -6,18 +6,18 @@ import { Period } from "./type";
 export const PERIODS: Period[] = [
   {
     id: 0,
-    startTime: dayjs("9:20", "HH:mm"),
-    endTime: dayjs("10:50", "HH:mm"),
+    startTime: dayjs("9:20", "H:mm"),
+    endTime: dayjs("10:50", "H:mm"),
   },
   {
     id: 1,
-    startTime: dayjs("11:05", "HH:mm"),
-    endTime: dayjs("12:35", "HH:mm"),
+    startTime: dayjs("11:05", "H:mm"),
+    endTime: dayjs("12:35", "H:mm"),
   },
   {
     id: 2,
-    startTime: dayjs("13:25", "HH:mm"),
-    endTime: dayjs("14:55", "HH:mm"),
+    startTime: dayjs("13:25", "H:mm"),
+    endTime: dayjs("14:55", "H:mm"),
   },
 ];
 export const WEEKDAYS = [

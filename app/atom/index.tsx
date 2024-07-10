@@ -5,16 +5,17 @@ import { Period } from "../type";
 
 export const periodsAtom = atom(PERIODS);
 
+console.log("PERIODS", PERIODS);
+
 const calculateInitialPeriods = (periods: Period[]) => {
   return periods.map((period) => {
-    const start = dayjs(period.startTime);
-    const end = dayjs(period.endTime);
+    const { startTime, endTime } = period;
 
-    if (start.isValid() && end.isValid()) {
+    if (startTime.isValid() && endTime.isValid()) {
       return {
         ...period,
-        startFormatted: start.format("HH:mm"),
-        endFormatted: end.format("HH:mm"),
+        startFormatted: startTime.format("HH:mm"),
+        endFormatted: endTime.format("HH:mm"),
       };
     } else {
       console.error("Invalid date in period:", period);
