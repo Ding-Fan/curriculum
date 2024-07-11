@@ -2,13 +2,13 @@ import { Dayjs } from "dayjs";
 
 interface Period {
   id: number;
-  startTime: Dayjs;
-  endTime: Dayjs;
+  startTime: string;
+  endTime: string;
 }
 
 interface PeriodProcessed extends Period {
-  startFormatted: string;
-  endFormatted: string;
+  startProcessed: Dayjs;
+  endProcessed: Dayjs;
 }
 
 interface Course {

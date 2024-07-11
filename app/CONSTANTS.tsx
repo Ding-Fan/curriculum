@@ -6,20 +6,23 @@ import { Period } from "./type";
 export const PERIODS: Period[] = [
   {
     id: 0,
-    startTime: dayjs("9:20", "H:mm"),
-    endTime: dayjs("10:50", "H:mm"),
+    startTime: "9:20",
+    endTime: "10:50",
   },
   {
     id: 1,
-    startTime: dayjs("11:05", "H:mm"),
-    endTime: dayjs("12:35", "H:mm"),
+    startTime: "11:05",
+    endTime: "12:35",
   },
   {
     id: 2,
-    startTime: dayjs("13:25", "H:mm"),
-    endTime: dayjs("14:55", "H:mm"),
+    startTime: "13:25",
+    endTime: "14:55",
   },
 ];
+
+// console.log("PERIODS from CONSTANTS", PERIODS);
+
 export const WEEKDAYS = [
   { id: 0, japanese: "日", english: "Sunday" },
   { id: 1, japanese: "月", english: "Monday" },

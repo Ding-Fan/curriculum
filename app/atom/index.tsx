@@ -11,20 +11,11 @@ const calculateInitialPeriods = (periods: Period[]) => {
   return periods.map((period) => {
     const { startTime, endTime } = period;
 
-    if (startTime.isValid() && endTime.isValid()) {
-      return {
-        ...period,
-        startFormatted: startTime.format("HH:mm"),
-        endFormatted: endTime.format("HH:mm"),
-      };
-    } else {
-      console.error("Invalid date in period:", period);
-      return {
-        ...period,
-        startFormatted: "Invalid Date",
-        endFormatted: "Invalid Date",
-      };
-    }
+    return {
+      ...period,
+      startProcessed: dayjs(startTime, "H:mm"),
+      endProcessed: dayjs(endTime, "H:mm"),
+    };
   });
 };
 

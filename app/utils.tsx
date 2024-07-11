@@ -7,7 +7,7 @@ export const isCurrentCourse = (course: Course, periods: PeriodProcessed[]) => {
   const { startTime, endTime } = periods[course.period];
 
   let result =
-    currentTime.isBetween(startTime, endTime) &&
+    currentTime.isBetween(dayjs(startTime, "H:mm"), dayjs(endTime,"H:mm")) &&
     currentTime.day() === course.weekdays;
 
   return { result };
@@ -19,6 +19,6 @@ export const isNextCourse = (course: Course, periods: PeriodProcessed[]) => {
   const { startTime } = periods[course.period];
 
   const result =
-    currentTime.isBefore(startTime) && currentTime.day() === course.weekdays;
+    currentTime.isBefore(dayjs(startTime, "H:mm")) && currentTime.day() === course.weekdays;
   return { result };
 };

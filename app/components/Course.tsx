@@ -5,7 +5,7 @@ import { WEEKDAYS } from "../CONSTANTS";
 import { useEffect, useState } from "react";
 import React from "react";
 import dayjs from "dayjs";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import { periodsProcessedAtom } from "../atom";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -33,7 +33,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
   const periodsProcessed = useAtomValue(periodsProcessedAtom);
 
-  const { startFormatted, endFormatted, startTime, endTime } =
+  const { startTime, endTime, startProcessed, endProcessed } =
     periodsProcessed[period];
 
   const [mergedClassName, setMergedClassName] = useState("");
@@ -57,8 +57,8 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
     if (isCurrentCourse) {
       const currentTime = dayjs();
-      const totalDuration = startTime.diff(endTime, "minute");
-      const currentDuration = currentTime.diff(endTime, "minute");
+      const totalDuration = startProcessed.diff(endProcessed, "minute");
+      const currentDuration = currentTime.diff(endProcessed, "minute");
 
       const percentage = Math.min((currentDuration / totalDuration) * 100, 100);
 
@@ -66,7 +66,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
       setCompletionPercentage(percentage);
     }
-  }, [startTime, endTime, isCurrentCourse]);
+  }, [startProcessed, endProcessed, isCurrentCourse]);
 
   // https://www.bugpilot.com/guides/en/how-to-fix-text-content-mismatch-errors-nextjs-0a2e#2-use-of-non-deterministic-javascript
   // we have to useState and useEffect
@@ -90,7 +90,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
 
         <div className="text-xl font-bold">Period</div>
         <div>
-          {startFormatted} - {endFormatted}
+          {startTime} - {endTime}
         </div>
 
         <div className="text-xl font-bold">Weekdays</div>
