@@ -4,7 +4,7 @@ import { COURSES, WEEKDAYS } from "./CONSTANTS";
 import dayjs from "dayjs";
 import Course from "./components/Course";
 import { twMerge } from "tailwind-merge";
-import { isCurrentCourse, isNextCourse } from "./utils";
+import { findCurrentCourse, findNextCourse } from "./utils";
 import useScrollTo from "./hooks/useScrollTo";
 import { useEffect, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
@@ -33,15 +33,9 @@ export default function Home() {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    setNextCourseId(findNextCourse(periodsProcessed).id);
+    setCurrentCourseId(findCurrentCourse(periodsProcessed).id);
 
-    COURSES.forEach((course, index) => {
-      if (isNextCourse(course, periodsProcessed).result) {
-        setNextCourseId(index);
-      }
-      if (isCurrentCourse(course, periodsProcessed).result) {
-        setCurrentCourseId(index);
-      }
-    });
     if (currentCourseId > -1) {
       (scrollToCurrent as () => void)();
       // console.log("currentCourseId", currentCourseId);
@@ -98,9 +92,7 @@ export default function Home() {
                         weekdays={course.weekdays}
                         classroom={course.classroom}
                         isCurrentCourse={course.id === currentCourseId}
-                        isNextCourse={
-                          isNextCourse(course, periodsProcessed).result
-                        }
+                        isNextCourse={course.id === nextCourseId}
                         className={twMerge("w-60")}
                       />
                     );
