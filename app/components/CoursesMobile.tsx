@@ -64,10 +64,7 @@ const CoursesMobile = (props: Props) => {
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
-    <div
-      {...props}
-      className={twMerge("flex flex-col gap-2 w-screen", props.className)}
-    >
+    <div {...props} className={twMerge("flex flex-col gap-2", props.className)}>
       {WEEKDAYS.map((weekday) => {
         return (
           <div key={weekday.id} className="p-2">
