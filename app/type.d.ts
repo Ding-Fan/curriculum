@@ -11,7 +11,7 @@ interface PeriodProcessed extends Period {
   endProcessed: Dayjs;
 }
 
-interface Course {
+interface ICourse {
   id: number;
   subject: string;
   teacher: string;

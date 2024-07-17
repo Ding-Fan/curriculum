@@ -1,8 +1,11 @@
 import dayjs from "dayjs";
-import { Course, PeriodProcessed } from "./type";
+import { ICourse, PeriodProcessed } from "./type";
 import { COURSES } from "./CONSTANTS";
 
-export const isCurrentCourse = (course: Course, periods: PeriodProcessed[]) => {
+export const isCurrentCourse = (
+  course: ICourse,
+  periods: PeriodProcessed[]
+) => {
   const currentTime = dayjs();
 
   const { startTime, endTime } = periods[course.period];
@@ -29,7 +32,7 @@ export const findNextCourse = (periods: PeriodProcessed[]) => {
 
   let diff = Infinity;
   const todayCourses = COURSES.filter((c) => c.weekdays === currentTime.day());
-  let nextCourse = todayCourses[0];
+  let nextCourse = null;
 
   todayCourses.forEach((c) => {
     const currentDiff = dayjs(periods[c.period].startTime, "H:mm").diff(
