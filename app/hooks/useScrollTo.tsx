@@ -5,7 +5,10 @@ function useScrollTo() {
 
   const scrollToElement = useCallback(() => {
     if (elementRef.current) {
-      elementRef.current.scrollIntoView({ behavior: "smooth" });
+      elementRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }, []);
 

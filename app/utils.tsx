@@ -18,7 +18,7 @@ export const isCurrentCourse = (
 };
 
 export const findCurrentCourse = (periods: PeriodProcessed[]) => {
-  let currentCourse = COURSES[0];
+  let currentCourse = null;
 
   currentCourse =
     COURSES.find((course) => isCurrentCourse(course, periods).result) ||
