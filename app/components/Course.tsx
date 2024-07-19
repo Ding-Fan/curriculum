@@ -79,22 +79,22 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
         style={{ height: `${completionPercentage}%` }}
       ></div>
       <div className="card-body z-10">
-        <div className="text-xl font-bold">Subject</div>
-        <div>{subject} </div>
+        <div className="text-sm">Subject</div>
+        <div className="text-xl font-bold">{subject} </div>
 
-        <div className="text-xl font-bold">Teacher</div>
-        <div>{teacher} </div>
+        <div className="text-sm">Teacher</div>
+        <div className="text-xl font-bold">{teacher} </div>
 
-        <div className="text-xl font-bold">Classroom</div>
-        <div>{classroom} </div>
+        <div className="text-sm">Classroom</div>
+        <div className="text-xl font-bold">{classroom} </div>
 
-        <div className="text-xl font-bold">Period</div>
-        <div>
+        <div className="text-sm">Period</div>
+        <div className="text-xl font-bold">
           {startTime} - {endTime}
         </div>
 
-        <div className="text-xl font-bold">Weekdays</div>
-        <div>{WEEKDAYS[weekdays].japanese}</div>
+        <div className="text-sm">Weekdays</div>
+        <div className="text-xl font-bold">{WEEKDAYS[weekdays].japanese}</div>
       </div>
     </div>
   );
