@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 import { WEEKDAYS, COURSES } from "../CONSTANTS";
 import Course from "./Course";
@@ -9,6 +10,7 @@ import { periodsProcessedAtom } from "../atom";
 import useScrollTo from "../hooks/useScrollTo";
 import { findNextCourse, findCurrentCourse } from "../utils";
 import { ICourse } from "../type";
+import Weekday from "./Weekday";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -68,26 +70,18 @@ const Courses = (props: Props) => {
       <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
-            <div key={weekday.id} className="p-2">
-              <div
-                className={twMerge(
-                  "bg-gray-200 rounded-2xl items-center justify-center p-4 flex gap-2 w-60",
-                  dayjs().day() === weekday.id ? "bg-amber-200" : ""
-                )}
-              >
-                <div className="text-2xl">{weekday.japanese}</div>
-                <div className="">
-                  {dayjs().day(weekday.id).format("MM/DD")}
-                </div>
-              </div>
-            </div>
+            <Weekday
+              key={weekday.id}
+              japanese={weekday.japanese}
+              id={weekday.id}
+            />
           );
         })}
       </div>
       <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
         {WEEKDAYS.map((weekday) => {
           return (
-            <div key={weekday.id} className="p-2">
+            <div key={weekday.id}>
               <div className="flex flex-col gap-2">
                 {COURSES.filter((course) => course.weekdays === weekday.id).map(
                   (course) => {
