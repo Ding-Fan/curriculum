@@ -39,22 +39,17 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   const [mergedClassName, setMergedClassName] = useState("");
 
   useEffect(() => {
+    // Reintroducing border with left status line
     setMergedClassName(
       twMerge(
-        "card shadow-lg overflow-hidden transition-all duration-300",
-        // Period-based color coding
-        period === 0 ? "bg-primary/10 hover:bg-primary/20 border-l-4 border-primary" : "",
-        period === 1 ? "bg-secondary/10 hover:bg-secondary/20 border-l-4 border-secondary" : "",
-        period === 2 ? "bg-success/10 hover:bg-success/20 border-l-4 border-success" : "",
-        // Status-based styling
-        isCurrentCourse ? "bg-gradient-to-r from-accent/30 to-accent/10 border border-accent shadow-accent/30" : "",
-        isNextCourse ? "bg-accent/10 border border-accent/50" : "",
+        "card border border-base-300 rounded-lg overflow-hidden transition-all duration-300 relative", // Re-added border
         className
       )
     );
+    // Status styling is still handled by the indicator line element below
 
     return () => {};
-  }, [className, period, isCurrentCourse, isNextCourse]);
+  }, [className]); // Dependencies simplified as status is handled separately
 
   const [completionPercentage, setCompletionPercentage] = useState(0);
 
@@ -74,43 +69,45 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     }
   }, [startProcessed, endProcessed, isCurrentCourse]);
 
-  // Get period-specific colors for progress bar
-  const getProgressBarColor = () => {
-    if (isCurrentCourse) {
-      return "bg-accent/50";
-    }
-    switch (period) {
-      case 0: return "bg-primary/30";
-      case 1: return "bg-secondary/30";
-      case 2: return "bg-success/30";
-      default: return "bg-accent/30";
-    }
-  };
+  // Progress bar remains for current course
+  const progressBarColor = isCurrentCourse ? "bg-accent" : "bg-transparent"; // Only show for current
+
+  // Determine status indicator color
+  const statusIndicatorColor = isCurrentCourse
+    ? "bg-accent"
+    : isNextCourse
+    ? "bg-accent/50"
+    : "bg-transparent";
 
   return (
     <div ref={ref} className={mergedClassName} {...rest}>
+      {/* Left Status Indicator Line */}
       <div
-        className={`absolute bottom-0 w-full ${getProgressBarColor()}`}
-        style={{ height: `${completionPercentage}%` }}
+        className={`absolute top-0 left-0 bottom-0 w-1 ${statusIndicatorColor} rounded-l-lg`}
       ></div>
-      {/* Restored font sizes, kept reduced padding, removed margins */}
-      <div className="card-body z-10 p-3"> 
-        <div className="text-sm text-base-content opacity-70">Subject</div>
-        <div className="text-xl font-bold text-base-content">{subject}</div>
 
-        <div className="text-sm text-base-content opacity-70">Teacher</div>
-        <div className="text-lg font-semibold text-base-content">{teacher}</div>
+      {/* Progress bar as a thin line at the bottom (only for current) */}
+      {isCurrentCourse && (
+        <div
+          className={`absolute bottom-0 left-0 h-1 bg-accent`} // Use accent color directly
+          style={{ width: `${completionPercentage}%` }}
+        ></div>
+      )}
+      {/* Adjusted padding for status line */}
+      <div className="card-body p-4 z-10"> {/* Adjusted pl */}
+        <div className="text-xs text-base-content/60">Subject</div> {/* Smaller label */}
+        <div className="text-lg font-medium text-base-content">{subject}</div>
 
-        <div className="text-sm text-base-content opacity-70">Classroom</div>
-        <div className="text-lg font-semibold text-base-content">{classroom}</div>
+        <div className="text-xs text-base-content/60">Teacher</div> {/* Smaller label */}
+        <div className="text-sm text-base-content/80">{teacher}</div>
 
-        <div className="text-sm text-base-content opacity-70">Period</div>
-        <div className="text-lg font-semibold text-base-content">
-          {startTime} - {endTime}
+        <div className="text-xs text-base-content/60">Classroom</div> {/* Smaller label */}
+        <div className="text-3xl font-semibold text-cyan-700">{classroom}</div> {/* Changed color to secondary */}
+
+        <div className="text-xs text-base-content/60">Period & Weekday</div> {/* Combined label */}
+        <div className="text-sm text-base-content/80"> {/* Kept original emphasis */}
+          {startTime} - {endTime} | {WEEKDAYS[weekdays].japanese}
         </div>
-
-        <div className="text-sm text-base-content opacity-70">Weekdays</div>
-        <div className="text-lg font-semibold text-base-content">{WEEKDAYS[weekdays].japanese}</div>
       </div>
     </div>
   );

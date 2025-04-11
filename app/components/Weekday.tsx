@@ -12,32 +12,37 @@ type Props = {
 const Weekday = ({ japanese, id }: Props) => {
   const isCurrentDay = dayjs().day() === id;
   
-  // Get weekday-specific styling
+  // Simplified weekday styling for consistency
   const getWeekdayStyle = () => {
-    // Weekend styling
-    if (id === 0 || id === 6) {
-      return isCurrentDay 
-        ? "bg-gradient-to-r from-error/30 to-error/10 border border-error" 
-        : "bg-error/10 border border-error/30";
+    const isWeekend = id === 0 || id === 6;
+
+    if (isCurrentDay) {
+      return isWeekend
+        ? "bg-error/5 border border-error" // Current weekend day
+        : "bg-accent/5 border border-accent"; // Current weekday
+    } else {
+      return isWeekend
+        ? "bg-error/5 border border-error/30" // Non-current weekend day
+        : "bg-base-100 border border-base-300"; // Regular weekday (matches Course card)
     }
-    
-    // Weekday styling with gradient for current day
-    return isCurrentDay 
-      ? "bg-gradient-to-r from-accent/40 to-accent/10 border border-accent shadow-md" 
-      : "bg-base-200 border border-base-300";
   };
+
+  // Determine text color based on current day and weekend status
+  const textColor = isCurrentDay 
+    ? (id === 0 || id === 6 ? "text-error" : "text-accent") 
+    : "text-base-content";
 
   return (
     <div
       className={twMerge(
-        "rounded-xl items-center justify-center p-4 flex gap-2 transition-all duration-300", // Removed md:w-60
+        "rounded-xl items-center justify-center p-4 flex gap-2 transition-all duration-300",
         getWeekdayStyle()
       )}
     >
-      <div className={`text-2xl font-bold ${isCurrentDay ? "text-accent-focus" : "text-base-content"}`}>
+      <div className={`text-2xl font-bold ${textColor}`}> {/* Simplified text color logic */}
         {japanese}
       </div>
-      <div className={`${isCurrentDay ? "font-semibold text-accent-focus" : "text-base-content"}`}>
+      <div className={`${isCurrentDay ? "font-semibold" : ""} ${textColor}`}> {/* Simplified text color logic */}
         {dayjs().day(id).format("MM/DD")}
       </div>
     </div>

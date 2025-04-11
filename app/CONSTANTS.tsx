@@ -76,7 +76,7 @@ export const COURSES = [
   },
   {
     id: 5,
-    subject: "情報資格I",
+    subject: "情報資格",
     teacher: "佐藤",
     classroom: "61",
     period: 1,
@@ -92,7 +92,7 @@ export const COURSES = [
   },
   {
     id: 7,
-    subject: "ビジネス日本語演習III",
+    subject: "ビジネス日本語演習",
     teacher: "澤田",
     classroom: "21",
     period: 1,
@@ -108,7 +108,7 @@ export const COURSES = [
   },
   {
     id: 9,
-    subject: "LinuxI",
+    subject: "Linux",
     teacher: "伊藤",
     classroom: "61",
     period: 1,
@@ -132,7 +132,7 @@ export const COURSES = [
   },
   {
     id: 12,
-    subject: "スマートフォンアプリ開発I",
+    subject: "スマートフォンアプリ開発",
     teacher: "深田",
     classroom: "61",
     period: 2,
