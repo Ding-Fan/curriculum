@@ -61,10 +61,15 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
   useEffect(() => {
     if (isCurrentCourse) {
       const currentTime = dayjs();
-      const totalDuration = startProcessed.diff(endProcessed, "minute");
-      const currentDuration = currentTime.diff(endProcessed, "minute");
+      // Corrected: Calculate total duration from start to end
+      const totalDuration = endProcessed.diff(startProcessed, "minute");
+      // Corrected: Calculate duration from start to current time
+      const currentDuration = currentTime.diff(startProcessed, "minute");
 
-      const percentage = Math.min((currentDuration / totalDuration) * 100, 100);
+      // Ensure totalDuration is positive to avoid division by zero or negative numbers
+      const percentage = totalDuration > 0 
+        ? Math.max(0, Math.min((currentDuration / totalDuration) * 100, 100)) 
+        : 0;
       setCompletionPercentage(percentage);
     }
   }, [startProcessed, endProcessed, isCurrentCourse]);

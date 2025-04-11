@@ -8,39 +8,38 @@ export const isCurrentCourse = (
 ) => {
   const currentTime = dayjs();
 
-  const { startTime, endTime } = periods[course.period];
+  const { startProcessed, endProcessed } = periods[course.period];
 
+  // Use inclusive boundaries '[]' for isBetween
   let result =
-    currentTime.isBetween(dayjs(startTime, "H:mm"), dayjs(endTime, "H:mm")) &&
+    currentTime.isBetween(startProcessed, endProcessed, null, "[]") &&
     currentTime.day() === course.weekdays;
 
-  return { result };
+  // No need to return an object { result }, just return the boolean
+  return result;
 };
 
-export const findCurrentCourse = (periods: PeriodProcessed[]) => {
-  let currentCourse = null;
-
-  currentCourse =
-    COURSES.find((course) => isCurrentCourse(course, periods).result) ||
-    currentCourse;
-
-  return currentCourse;
+export const findCurrentCourse = (periods: PeriodProcessed[]): ICourse | null => {
+  // Directly return the result of find
+  return COURSES.find((course) => isCurrentCourse(course, periods)) || null;
 };
 
 export const findNextCourse = (periods: PeriodProcessed[]) => {
   const currentTime = dayjs();
 
-  let diff = Infinity;
-  const todayCourses = COURSES.filter((c) => c.weekdays === currentTime.day());
-  let nextCourse = null;
+  let minPositiveDiff = Infinity;
+  let nextCourse: ICourse | null = null;
+  const today = currentTime.day();
 
-  todayCourses.forEach((c) => {
-    const currentDiff = dayjs(periods[c.period].startTime, "H:mm").diff(
-      currentTime
-    );
-    if (currentDiff < diff) {
-      diff = currentDiff;
-      nextCourse = c;
+  COURSES.filter((c) => c.weekdays === today).forEach((course) => {
+    const courseStartTime = periods[course.period].startProcessed;
+    const diff = courseStartTime.diff(currentTime); // Difference in milliseconds
+
+    // Check if the course starts after the current time (positive diff)
+    // and if this difference is smaller than the current minimum positive difference
+    if (diff > 0 && diff < minPositiveDiff) {
+      minPositiveDiff = diff;
+      nextCourse = course;
     }
   });
 
