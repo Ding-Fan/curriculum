@@ -67,13 +67,31 @@ const CoursesMobile = (props: Props) => {
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
-    <div {...props} className={twMerge("flex flex-col gap-2", props.className)}>
-      {WEEKDAYS.map((weekday) => {
+    <div {...props} className={twMerge("flex flex-col gap-4", props.className)}>
+      {/* Status indicators */}
+      <div className="flex justify-end gap-4 mb-2 px-2">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-accent/50 rounded-full"></div>
+          <span className="text-xs text-base-content">Current</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-accent/20 rounded-full"></div>
+          <span className="text-xs text-base-content">Next</span>
+        </div>
+      </div>
+      
+      {WEEKDAYS.map((weekday, index) => {
+        const coursesForDay = COURSES.filter((course) => course.weekdays === weekday.id);
+        // Don't render the day if there are no courses
+        if (coursesForDay.length === 0) {
+          return null;
+        }
         return (
-          <div key={weekday.id} className="p-2">
+          // Added border-b for separation, increased padding and gap
+          <div key={weekday.id} className="p-4 border-b border-base-300 last:border-b-0"> 
             <Weekday japanese={weekday.japanese} id={weekday.id} />
-            <div className="flex flex-col gap-2">
-              {COURSES.filter((course) => course.weekdays === weekday.id).map(
+            <div className="flex flex-col gap-3 mt-3"> {/* Increased gap and added margin-top */}
+              {coursesForDay.map(
                 (course) => {
                   return (
                     <Course

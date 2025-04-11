@@ -30,9 +30,6 @@ const Courses = (props: Props) => {
   };
 
   useEffect(() => {
-    // we need to disable scroll restoration
-    // because it will conflict with our own scroll manipulation
-
     // Disable scroll restoration
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -51,10 +48,8 @@ const Courses = (props: Props) => {
 
     if (currentCourseId > -1) {
       (scrollToCurrent as () => void)();
-      // console.log("currentCourseId", currentCourseId);
     } else if (nextCourseId > -1) {
       (scrollToNext as () => void)();
-      // console.log("nextCourseId", nextCourseId);
     }
 
     // Re-enable scroll restoration when the component unmounts
@@ -66,8 +61,21 @@ const Courses = (props: Props) => {
   }, [currentCourseId, scrollToCurrent, scrollToNext, nextCourseId]);
 
   return (
-    <div {...props}>
-      <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
+    <div {...props} className={twMerge("transition-all duration-300", props.className)}>
+      {/* Status indicators */}
+      <div className="flex justify-end gap-4 mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-accent/50 rounded-full"></div>
+          <span className="text-sm text-base-content">Current Course</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-accent/20 rounded-full"></div>
+          <span className="text-sm text-base-content">Next Course</span>
+        </div>
+      </div>
+      
+      {/* Weekday headers */}
+      <div className="grid grid-cols-7 gap-3 mb-3">
         {WEEKDAYS.map((weekday) => {
           return (
             <Weekday
@@ -78,11 +86,13 @@ const Courses = (props: Props) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-[repeat(7,16rem)] gap-2">
+      
+      {/* Course grid */}
+      <div className="grid grid-cols-7 gap-3">
         {WEEKDAYS.map((weekday) => {
           return (
-            <div key={weekday.id}>
-              <div className="flex flex-col gap-2">
+            <div key={weekday.id} className="transition-all duration-300">
+              <div className="flex flex-col gap-3">
                 {COURSES.filter((course) => course.weekdays === weekday.id).map(
                   (course) => {
                     return (
@@ -98,7 +108,7 @@ const Courses = (props: Props) => {
                         classroom={course.classroom}
                         isCurrentCourse={course.id === currentCourseId}
                         isNextCourse={course.id === nextCourseId}
-                        className={twMerge("w-60")}
+                        className={twMerge("w-full")}
                       />
                     );
                   }

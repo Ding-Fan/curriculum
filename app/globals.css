@@ -8,7 +8,34 @@
   margin: 0;
 }
 
+html {
+  transition: background-color 0.3s ease;
+}
+
+body {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Custom styling for cards */
+.card {
+  @apply transition-all duration-300 hover:shadow-xl;
+}
+
+/* Custom styling for dark mode */
+[data-theme="dark"] .card {
+  @apply bg-opacity-20 backdrop-blur-sm;
+}
+
+[data-theme="dark"] .card-body {
+  @apply text-base-content;
+}
+
+/* Improve scrolling behavior */
+html {
+  scroll-behavior: smooth;
 }
