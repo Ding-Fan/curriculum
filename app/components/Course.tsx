@@ -42,7 +42,7 @@ const Course = React.forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     // Reintroducing border with left status line
     setMergedClassName(
       twMerge(
-        "card border border-base-300 rounded-lg overflow-hidden transition-all duration-300 relative", // Re-added border
+        "card border border-base-300 bg-paper rounded-lg overflow-hidden transition-all duration-300 relative", // Re-added border and changed background
         className
       )
     );

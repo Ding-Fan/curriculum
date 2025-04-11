@@ -14,6 +14,7 @@ module.exports = {
         'course-accent': '#f59e0b',     // Amber for accents/highlights
         'course-neutral': '#1f2937',    // Dark gray for text
         'course-base': '#f3f4f6',       // Light gray for backgrounds
+        'paper': '#f5f5dc', // Light beige for paper-like background
       },
     },
   },
